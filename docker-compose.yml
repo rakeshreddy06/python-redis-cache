@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  test:
+    image: python:${PY_VERSION:-3.9.16}
+    volumes:
+      - .:/python
+    command: ${TEST_COMMAND:-python setup.py test}
+    stdin_open: true
+    tty: true
+    working_dir: /python
+    depends_on:
+      - redis-test-host
+
+  redis-test-host:
+    image: redis:${REDIS_VERSION:-5}
